@@ -84,3 +84,5 @@ author : Veronica Perez-Rosas, Bennett Kleinberg, Alexandra Lefevre, Rada Mihalc
 title : Automatic Detection of Fake News,
 journal : International Conference on Computational Linguistics (COLING),
 year : 2018
+- LIAR Dataset author : William Wang, william@cs.ucsb.edu
+
