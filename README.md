@@ -22,6 +22,9 @@ See `TIMELINE.md`
 
 ## Rules for code management
 
+- Test the code: `py -m pytest`
+- Test the coverage: `py -m pytest --cov=.` in main directory
+
 Use the Test-Driven Development:
 
 1. Identify what you're going to develop next, on which files, and discuss it with the team.
