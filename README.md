@@ -71,3 +71,16 @@ Output:
 ## License
 
 See `LICENSE`.
+
+
+
+## Credits and sources
+
+ML :
+- RandomForestClassifier https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html
+- SVC classifier https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html
+- Dataset 1,
+author : Veronica Perez-Rosas, Bennett Kleinberg, Alexandra Lefevre, Rada Mihalcea,
+title : Automatic Detection of Fake News,
+journal : International Conference on Computational Linguistics (COLING),
+year : 2018
