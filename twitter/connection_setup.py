@@ -1,4 +1,4 @@
-from twitter.credentials import *
+from credentials import *
 import tweepy
 
 
