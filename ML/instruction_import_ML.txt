@@ -1,0 +1,7 @@
+Instruction pour importer le modèle compilé
+
+with open('fake_news_AI', 'rb') as pipeline:
+    model = pickle.load(pipeline)
+
+puis faire model.predict_proba(vectorisation(tweet)) pour avoir la proba 
+(faire juste .predict(tweet) pour résultat binaire)
