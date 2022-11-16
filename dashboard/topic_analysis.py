@@ -12,20 +12,16 @@ def topic_analysis(queries, tweet_number):
     '''
     Compute the analysis of the query, return a DASH element.
     '''
-    #Séparation en sous-requêtes
-    Queries = re.split('/n',queries)
+    Credibility_index = []
+    Tweets = []
+    data = collect_tweets(queries,tweet_number)
+    data = transform_to_dataframe(data)
+    for _, row in data.iterrows():
+        Tweets.append(row)
+    for i in range(len(Tweets)):
+        Credibility_index.append(credibility(Tweets[i]))
 
-    for k in range(len(Queries)):
-        data = collect_tweets(Queries[k],tweet_number)
-        data = transform_to_dataframe(data)
-        Credibility_index = []
-        Tweets = []
-        for _, row in data.iterrows():
-            Tweets.append(row)
-        for i in range(len(Tweets)):
-            Credibility_index.append(credibility(Tweets[i]))
-
-    A=[]
+        A=[]
     for i in range(3):
         p=np.min(Credibility_index)
         j=0
@@ -35,13 +31,3 @@ def topic_analysis(queries, tweet_number):
         Tweets=Tweets[:j]+ Tweets[j+1:]
         Credibility_index=Credibility_index[:j]+ Credibility_index[j+1:]
     
-
-
-    Credibility_index = []
-    Tweets = []
-    data = collect_tweets(queries,tweet_number)
-    data = transform_to_dataframe(data)
-    for _, row in data.iterrows():
-        Tweets.append(row)
-    for i in range(len(Tweets)):
-        Credibility_index.append(credibility(Tweets[i]))
