@@ -1,6 +1,6 @@
 from dash import Dash, dcc, html, Input, Output, State
 import dash_daq as daq
-import re
+import matplotlib.pyplot as plt
 from credibility.aggregator import credibility
 from twitter.collector import collect_tweets,transform_to_dataframe
 
