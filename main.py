@@ -12,7 +12,7 @@ app.layout = html.Div([
     # Ecological banner
     html.Div(id='ecology', children=[
         html.H3('Be aware of your environmental impact!'),
-        html.P('This application queries Twitter servors and process them.'),
+        html.P('This application queries Twitter servors and process some tweets.'),
         html.P('While the power consumption of Twitter servors can not be known, \
             the CarbonAI package will measure the power consumption of our server. \
             The higher the number of tweets, the higher the consumption. Please pay attention ;)'),
@@ -20,6 +20,8 @@ app.layout = html.Div([
     ]),
 
     # Input area
+    html.H2('Query'),
+
     html.H3('Topics'),
     dcc.Textarea(
         id='text-input',
