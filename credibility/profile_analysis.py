@@ -19,8 +19,11 @@ def number_of_following(tweet):
     pass
 
 
-def ratio_of_tweets_retweets(tweets):
+def ratio_age_retweets(tweet):
     '''
     Compute the ratio of retweets of the tweet dataframe.
     '''
-    pass
+    user_id = tweet['user_id']
+    age = account_age(tweet)
+    nb_tweets = tweet['user_nb_status']
+    return age/nb_tweets
