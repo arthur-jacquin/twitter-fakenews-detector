@@ -19,23 +19,44 @@ app.layout = html.Div([
         html.P('The processing also use a machine-learning model that took  to train.'),
     ]),
 
-    # Input area
-    html.H2('Query'),
+    dcc.Tabs([
+        # Topic analysis
+        dcc.Tab(label='Topic analysis', children=[
+            html.H2('Query'),
+            html.H3('Topics'),
+            html.P('Please enter keywords (a query will be made for each line).'),
+            dcc.Textarea(
+                id='text-input',
+                value='biden\ntrump',
+                style={'width': '100%', 'height': 60},
+            ),
+            html.H3('Number of tweets to fetch'),
+            dcc.Slider(0, 100, value=10, id='slider'),
+            html.Button('Submit', id='submit-button', n_clicks=0),
 
-    html.H3('Topics'),
-    dcc.Textarea(
-        id='text-input',
-        value='biden\ntrump',
-        style={'width': '100%', 'height': 60},
-    ),
+            html.Div(id='analysis')
+        ]),
 
-    html.H3('Number of tweets to fetch'),
-    dcc.Slider(0, 100, value=10, id='slider'),
+        # User analysis
+        dcc.Tab(label='User analysis', children=[
+            html.H2('Query'),
+            html.P('Please enter an username or a profile-page URL.'),
+            dcc.Input(id="user-input", type="text"),
+            html.Button('Submit', id='user-submit-button', n_clicks=0),
 
-    html.Button('Submit', id='submit-button', n_clicks=0),
+            html.Div(id='user-analysis')
+        ]),
 
-    # Analysis
-    html.Div(id='analysis')
+        # Tweet analysis
+        dcc.Tab(label='Tweet analysis', children=[
+            html.H2('Query'),
+            html.P('Please enter the ID or the sharing URL of a tweet.'),
+            dcc.Input(id="tweet-input", type="text"),
+            html.Button('Submit', id='tweet-submit-button', n_clicks=0),
+
+            html.Div(id='tweet-analysis')
+        ]),
+    ]),
 ])
 
 
@@ -48,6 +69,30 @@ app.layout = html.Div([
 def update_output(n_clicks, queries, tweet_number):
     if n_clicks > 0:
         return topic_analysis(queries, tweet_number)
+
+
+@app.callback(
+    Output('user-analysis', 'children'),
+    Input('user-submit-button', 'n_clicks'),
+    State('user-input', 'value'),
+)
+def update_output(n_clicks, user):
+    if n_clicks > 0:
+        return html.Div([
+            html.P(f'{user}')
+        ])
+
+
+@app.callback(
+    Output('tweet-analysis', 'children'),
+    Input('tweet-submit-button', 'n_clicks'),
+    State('tweet-input', 'value'),
+)
+def update_output(n_clicks, tweet):
+    if n_clicks > 0:
+        return html.Div([
+            html.P(f'{tweet}')
+        ])
 
 
 if __name__ == '__main__':
