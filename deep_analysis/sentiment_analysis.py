@@ -12,6 +12,5 @@ def sentiment_analysis(tweet):
         tweet_blob = tweet_blob[1:]
     tweet_txt = tweet_blob[1]
     for k in range(2, len(tweet_blob)):
-        tweet_txt += ' '+tweet_blob[k]
-    # return tweet_txt
+        tweet_txt += ' ' + tweet_blob[k]
     return TextBlob(tweet_txt).sentiment.polarity, TextBlob(tweet_txt).sentiment.subjectivity
