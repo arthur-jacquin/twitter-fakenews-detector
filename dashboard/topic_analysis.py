@@ -65,7 +65,7 @@ def topic_analysis(queries, tweet_number):
     res.append(html.H4('Most trustable tweets'))
     for i in [cred_sorted[j][1] for j in range(3)]:
         res.append(html_of_tweet(tweets[i], creds[i], comments[i]))
-    res.append(html.H4('Less trustable tweets'))
+    res.append(html.H4('Least trustable tweets'))
     for i in [cred_sorted[j][1] for j in range(-1, -4, -1)]:
         res.append(html_of_tweet(tweets[i], creds[i], comments[i]))
 
