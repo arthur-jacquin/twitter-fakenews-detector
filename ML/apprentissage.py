@@ -1,5 +1,5 @@
-#import nltk
-#nltk.download('stopwords')
+import nltk
+nltk.download('stopwords')
 from sklearn.datasets import load_files
 import pickle
 from nltk.corpus import stopwords
