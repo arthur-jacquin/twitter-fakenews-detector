@@ -41,12 +41,12 @@ def collect_tweets(queries, tweet_number):
     return tweet_textual_content, user_id, tweet_id, user_account_age, tweet_nb_rt, user_nb_followers, user_nb_followings
 
 
-def transform_to_dataframe(tweet_textual_content, user_id, tweet_id, user_account_age, tweet_nb_rt, user_nb_followers, user_nb_followings):
+def transform_to_dataframe(tab):
     return pd.DataFrame({
-        'tweet_textual_content': tweet_textual_content,
-        'user_id': user_id,
-        'tweet_id': tweet_id,
-        'user_account_age': user_account_age,
-        'tweet_nb_rt': tweet_nb_rt,
-        'user_nb_followers': user_nb_followers,
-        'user_nb_followings': user_nb_followings})
+        'tweet_textual_content': tab[0],
+        'user_id': tab[1],
+        'tweet_id': tab[2],
+        'user_account_age': tab[3],
+        'tweet_nb_rt': tab[4],
+        'user_nb_followers': tab[5],
+        'user_nb_followings': tab[6]})
