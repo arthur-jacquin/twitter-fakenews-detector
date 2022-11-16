@@ -1,11 +1,12 @@
-from time import time, mktime, strptime
+from time import time
+import datetime
 
 
 def account_age(tweet):
     '''
     Get the account age (in seconds) of the tweet author.
     '''
-    return time() - mktime(strptime(tweet['user_creation_date'], '%a %b %d %H:%M:%S +0000 %Y'))
+    return time() - tweet['user_creation_date'].timestamp()
 
 
 def number_of_followers(tweet):
