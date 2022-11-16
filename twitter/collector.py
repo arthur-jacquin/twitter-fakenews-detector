@@ -50,4 +50,3 @@ def transform_to_dataframe(tweet_textual_content, user_id, tweet_id, user_accoun
         'tweet_nb_rt': tweet_nb_rt,
         'user_nb_followers': user_nb_followers,
         'user_nb_followings': user_nb_followings})
- #iuzfuzif
