@@ -6,10 +6,13 @@ import pandas as pd
 
 def collect_tweets(queries, tweet_number):
     # Data to collect
-    content_list = []
-    rt_list = []
-    source_list = []
-    author_list = []
+    tweet_textual_content = []
+    user_id = []
+    tweet_id = []
+    user_account_age = []
+    tweet_nb_rt = []
+    user_nb_followers = []
+    user_nb_followings = []
 
     # Connection setup
     api = twitter_setup()
@@ -23,14 +26,23 @@ def collect_tweets(queries, tweet_number):
 
         # Collect
         for tweet in res:
-            content_list.append(tweet.text)
-            rt_list.append(tweet.retweet_count)
-            source_list.append(tweet.source)
-            author_list.append(tweet.author.screen_name)
+            tweet_textual_content.append(tweet.text)
+            user_id.append(tweet.user.id)
+            tweet_id.append(tweet.id)
+            user_account_age.append(tweet.user.created_at)
+            tweet_nb_rt.append(tweet.retweet_count)
+            user_nb_followers.append(tweet.user.followers_count)
+            user_nb_followings.append(tweet.user.friends_count)
 
+    return tweet_textual_content, user_id, tweet_id, user_account_age, tweet_nb_rt, user_nb_followers, user_nb_followings
+
+
+def transform_to_dataframe(tweet_textual_content, user_id, tweet_id, user_account_age, tweet_nb_rt, user_nb_followers, user_nb_followings):
     return pd.DataFrame({
-        'tweet_textual_content': content_list,
-        'RTs': rt_list,
-        'Source': source_list,
-        'author': author_list,
-    })
+        'tweet_textual_content': tweet_textual_content,
+        'RTs': user_id,
+        'Source': tweet_id,
+        'author': user_account_age,
+        'author': tweet_nb_rt,
+        'author': user_nb_followers,
+        'author': user_nb_followings})
