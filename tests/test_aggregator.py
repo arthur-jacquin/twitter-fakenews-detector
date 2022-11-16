@@ -1,7 +1,6 @@
 from credibility.aggregator import credibility, force_0_1, barycentre
 from twitter.collector import transform_to_dataframe, collect_tweets
 
-from pytest import *
 
 for _, row in transform_to_dataframe(collect_tweets('trump', 1)).iterrows():
     tweet = row

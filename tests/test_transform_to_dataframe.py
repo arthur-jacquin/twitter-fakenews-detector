@@ -1,8 +1,6 @@
 from twitter.collector import collect_tweets
 from twitter.collector import transform_to_dataframe
 
-from pytest import *
-
 
 def test_transform_to_dataframe():
     tweet = collect_tweets("trump", 3)
