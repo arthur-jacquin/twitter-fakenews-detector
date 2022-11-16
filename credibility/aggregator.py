@@ -20,7 +20,7 @@ def barycentre(points):
     return res/ponderation
 
 
-def map(t):
+def force_0_1(t):
     ''' Map t between 0 and 1 '''
     return min(max(0, t), 1)
 
@@ -33,15 +33,16 @@ def credibility(tweet):
     Also returns the breakdown analysis, as well as some alerts and indications.
     '''
     # Machine learning
-    ml_credibility = ml_analysis(tweet)
+    ml_credibility = force_0_1(ml_analysis(tweet))
 
     # Account age
     # Moins d'un mois: ça craint; Plus d'un an: ok
-    age_credibility = map(1 - log(account_age(tweet)/(24*3600*30))/log(12))
+    age_credibility = force_0_1(
+        1 - log(account_age(tweet)/(24*3600*30))/log(12))
 
     # Ratio status/age du compte
     # Plus d'un tweet par heure: ça craint; Moins d'un par jour: ok
-    activity_credibility = map(
+    activity_credibility = force_0_1(
         log(ratio_of_statuses_account_age(tweet)*(24*3600))/log(24))
 
     # Ratio follower/following
@@ -50,11 +51,11 @@ def credibility(tweet):
     if number_of_followers(tweet) <= 10:
         follow_credibility = 1
     else:
-        follow_credibility = map(log(ratio/2)/log(10/2))
+        follow_credibility = force_0_1(log(ratio/2)/log(10/2))
 
     return barycentre([
         (ml_credibility, 3),
         (age_credibility, 1),
         (activity_credibility, 1),
         (follow_credibility, 1),
-    ]),
+    ]), None
