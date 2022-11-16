@@ -11,3 +11,4 @@ def test_collect_tweets():
     assert tweet[4] != []
     assert tweet[5] != []
     assert tweet[6] != []
+    assert tweet[7] != []
