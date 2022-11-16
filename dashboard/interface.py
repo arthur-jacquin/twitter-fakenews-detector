@@ -1,3 +1,5 @@
+from dashboard.topic_analysis import topic_analysis
+
 from dash import Dash, dcc, html, Input, Output, State
 import dash_daq as daq
 
@@ -35,7 +37,8 @@ app.layout = html.Div([
     State('slider', 'value'),
 )
 def update_output(n_clicks, queries, tweet_number):
-    pass
+    if n_clicks > 0:
+        return topic_analysis(queries, tweet_number)
 
 
 if __name__ == '__main__':
