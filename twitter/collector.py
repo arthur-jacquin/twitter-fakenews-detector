@@ -51,5 +51,5 @@ def transform_to_dataframe(tab):
         'user_creation_date': tab[3],
         'tweet_nb_rt': tab[4],
         'user_nb_followers': tab[5],
-        'user_nb_followings': tab[6]
+        'user_nb_followings': tab[6],
         'user_nb_status': tab[7]})
