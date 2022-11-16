@@ -51,7 +51,7 @@ def topic_analysis(queries, tweet_number):
     div.append(html.H3('Crédibilité des tweets'))
     div.append(histo)
     div.append(html.H3('3 tweets les plus fakes'))
-    div.append(html.H4('Tweet' + A[0][0][]))
+    div.append(html.H4(A[0][0]['tweet_textual_content'] + '/n' + A[1][0['tweet_textual_content']] + '/n' + A[2][0]['tweet_textual_content']))
 
-    return histo
+    return div
     
