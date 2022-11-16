@@ -1,84 +1,93 @@
+from tsv_to_txt import Xtrain, Xtest, ytrain, ytest, ytrainraw, ytestraw
+from CSV_to_txt import fk, fk_label, lg, lg_label
+from vectorisation import vectorisation, vectorisation_df
+from carbonai import PowerMeter
+from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
+from sklearn.pipeline import Pipeline
+from sklearn.svm import SVC
+from sklearn.ensemble import ExtraTreesClassifier
+from sklearn.ensemble import BaggingClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.feature_extraction.text import TfidfTransformer
+from sklearn.feature_extraction.text import CountVectorizer
+from nltk.corpus import stopwords
+import pickle
+from sklearn.datasets import load_files
 import nltk
 nltk.download('stopwords')
-from sklearn.datasets import load_files
-import pickle
-from nltk.corpus import stopwords
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.feature_extraction.text import TfidfTransformer
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.ensemble import BaggingClassifier
-from sklearn.ensemble import ExtraTreesClassifier
-from sklearn.svm import SVC
-from sklearn.pipeline import Pipeline
-from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
-from vectorisation import vectorisation,vectorisation_df
-from CSV_to_txt import fk,fk_label,lg,lg_label
-from tsv_to_txt import Xtrain,Xtest,ytrain,ytest,ytrainraw,ytestraw
 
+power_meter = PowerMeter(project_name="ML model training",
+                         is_online=False, location="FR")
 
-#############################################################
-#Import du dataset d'entraînement
+with power_meter(
+    package="sklearn",
+    algorithm="RandomForestClassifier",
+    algorithm_params="n_estimators=300, max_depth=15",
+    comments="Estimation of ML model training power consumption"
+):
+    #############################################################
+    # Import du dataset d'entraînement
 
-#dataset 1
-"""data_train = load_files(r"..\Dataset_Fake_News_eng\Trainset")
-X_train, y_train = data_train.data, data_train.target"""
+    # dataset 1
+    """data_train = load_files(r"..\Dataset_Fake_News_eng\Trainset")
+    X_train, y_train = data_train.data, data_train.target"""
 
-#dataset 2 
-"""X_train = fk[0:10001] + lg[0:10001]
-y_train = fk_label[0:10001] + lg_label[0:10001]"""
+    # dataset 2
+    """X_train = fk[0:10001] + lg[0:10001]
+    y_train = fk_label[0:10001] + lg_label[0:10001]"""
 
-#dataset 3
-X_train = Xtrain
-y_train = ytrain
+    # dataset 3
+    X_train = Xtrain
+    y_train = ytrain
 
-#############################################################
-#import du dataset de test
+    #############################################################
+    # import du dataset de test
 
-#dataset 1
-"""data_test = load_files(r"..\Dataset_Fake_News_eng\testing")
-X_test, y_test = data_test.data, data_test.target"""
+    # dataset 1
+    """data_test = load_files(r"..\Dataset_Fake_News_eng\testing")
+    X_test, y_test = data_test.data, data_test.target"""
 
-#dataset 3
-X_test = Xtest
-y_test = ytest
+    # dataset 3
+    X_test = Xtest
+    y_test = ytest
 
-#############################################################
-#Nettoyage des textes du dataset d'entraînement
+    #############################################################
+    # Nettoyage des textes du dataset d'entraînement
 
-X_train = vectorisation_df(X_train)
+    X_train = vectorisation_df(X_train)
 
-#############################################################
-#Nettoyage des textes du dataset de test
+    #############################################################
+    # Nettoyage des textes du dataset de test
 
-X_test = vectorisation_df(X_test)
+    X_test = vectorisation_df(X_test)
 
-#############################################################
-#Pipeline avec classifieur simple
-pipeline = Pipeline([('vectorizer',CountVectorizer(max_features=1500, min_df=5, max_df=0.7, stop_words=stopwords.words('english'))),('tfidfconverter',TfidfTransformer()),('classifier',RandomForestClassifier(n_estimators=1000, random_state=0))])
+    #############################################################
+    # Pipeline avec classifieur simple
+    pipeline = Pipeline([('vectorizer', CountVectorizer(max_features=1500, min_df=5, max_df=0.7, stop_words=stopwords.words(
+        'english'))), ('tfidfconverter', TfidfTransformer()), ('classifier', RandomForestClassifier(n_estimators=1000, random_state=0))])
 
-#Pipeline avec classifieur simple sans TFIDF
-#pipeline = Pipeline([('vectorizer',CountVectorizer(max_features=1500, min_df=5, max_df=0.7, stop_words=stopwords.words('english'))),('classifier',RandomForestClassifier(n_estimators=1000, random_state=0))])
+    # Pipeline avec classifieur simple sans TFIDF
+    #pipeline = Pipeline([('vectorizer',CountVectorizer(max_features=1500, min_df=5, max_df=0.7, stop_words=stopwords.words('english'))),('classifier',RandomForestClassifier(n_estimators=1000, random_state=0))])
 
-#Pipeline avec SVC
-#pipeline = Pipeline([('vectorizer',CountVectorizer(max_features=1500, min_df=5, max_df=0.7, stop_words=stopwords.words('english'))),('tfidfconverter',TfidfTransformer()),('svc',SVC(C=100, kernel='sigmoid'))])
+    # Pipeline avec SVC
+    #pipeline = Pipeline([('vectorizer',CountVectorizer(max_features=1500, min_df=5, max_df=0.7, stop_words=stopwords.words('english'))),('tfidfconverter',TfidfTransformer()),('svc',SVC(C=100, kernel='sigmoid'))])
 
-#Pipeline avec SVC sans TFIDF
-#pipeline = Pipeline([('vectorizer',CountVectorizer(max_features = 1500,min_df=5, max_df=0.7, stop_words=stopwords.words('english'))),('svc',SVC(C=10, kernel='linear'))])
+    # Pipeline avec SVC sans TFIDF
+    #pipeline = Pipeline([('vectorizer',CountVectorizer(max_features = 1500,min_df=5, max_df=0.7, stop_words=stopwords.words('english'))),('svc',SVC(C=10, kernel='linear'))])
 
-#Création du modèle, entraînement et prédiction
-pipeline.fit(X_train, y_train)
-y_pred = pipeline.predict(X_test)
+    # Création du modèle, entraînement et prédiction
+    pipeline.fit(X_train, y_train)
+    y_pred = pipeline.predict(X_test)
 
-#Evaluation du modèle
-print(confusion_matrix(y_test,y_pred))
-print(classification_report(y_test,y_pred))
-print(accuracy_score(y_test, y_pred))
+    # Evaluation du modèle
+    print(confusion_matrix(y_test, y_pred))
+    print(classification_report(y_test, y_pred))
+    print(accuracy_score(y_test, y_pred))
 
-##############################################################
-test = open(r'..\Dataset_Fake_News_eng\Trainset\Fake\001fake.txt','r')
-print(pipeline.predict(vectorisation(test)))
+    ##############################################################
+    test = open(r'..\Dataset_Fake_News_eng\Trainset\Fake\001fake.txt', 'r')
+    print(pipeline.predict(vectorisation(test)))
 
-
-#Compilation du modèle entraîné
-"""with open('fake_news_AI', 'wb') as picklefile:
-    pickle.dump(pipeline,picklefile)"""
+    # Compilation du modèle entraîné
+    """with open('fake_news_AI', 'wb') as picklefile:
+        pickle.dump(pipeline,picklefile)"""
