@@ -45,5 +45,5 @@ def topic_analysis(queries, tweet_number):
     #Histogramme
     histo = dcc.Graph(figure=plt.hist(Credibility_index))
 
-    return 
+    return histo,A,B
     
