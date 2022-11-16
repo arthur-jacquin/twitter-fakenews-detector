@@ -44,11 +44,13 @@ def author_credibility(tweet):
 
     # Ratio follower/following
     # Moins de 10 followers ou ratio >= 10: ça craint; ratio <= 2: ok
-    if number_of_followers(tweet) <= 10:
+    if number_of_followers(tweet) <= 10 or number_of_following(tweet) <= 10:
         follow_credibility = 1
     else:
-        # number_of_followers(tweet) != 0 because > 10
+        # number_of_follow{ers, ing}(tweet) != 0 because > 10
         ratio = number_of_following(tweet)/number_of_followers(tweet)
+        if ratio == 0:
+            follow_credibility
         follow_credibility = force_0_1(log(ratio/2)/log(10/2))
 
     return barycentre([
