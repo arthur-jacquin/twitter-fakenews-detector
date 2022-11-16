@@ -9,5 +9,5 @@ for _, row in transform_to_dataframe(collect_tweets('trump', 1)).iterrows():
 
 def test_aggregator():
     final_grade = credibility(tweet)
-    assert 0 <= final_grade[0]
+    assert 0 <= final_grade
     assert final_grade <= 1
