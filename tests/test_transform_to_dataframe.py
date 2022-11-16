@@ -10,7 +10,8 @@ def test_transform_to_dataframe():
     assert 'tweet_textual_content' in data.columns
     assert 'user_id' in data.columns
     assert 'tweet_id' in data.columns
-    assert 'user_account_age' in data.columns
+    assert 'user_creation_date' in data.columns
     assert 'tweet_nb_rt' in data.columns
     assert 'user_nb_followers' in data.columns
     assert 'user_nb_followings' in data.columns
+    assert 'user_nb_status' in data.columns

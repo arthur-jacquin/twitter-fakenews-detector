@@ -13,10 +13,11 @@ def collect_tweets(queries, tweet_number):
     tweet_textual_content = []
     user_id = []
     tweet_id = []
-    user_account_age = []
+    user_creation_date = []
     tweet_nb_rt = []
     user_nb_followers = []
     user_nb_followings = []
+    user_nb_status = []
 
     # Connection setup
     api = twitter_setup()
@@ -33,12 +34,13 @@ def collect_tweets(queries, tweet_number):
             tweet_textual_content.append(tweet.text)
             user_id.append(tweet.user.id)
             tweet_id.append(tweet.id)
-            user_account_age.append(tweet.user.created_at)
+            user_creation_date.append(tweet.user.created_at)
             tweet_nb_rt.append(tweet.retweet_count)
             user_nb_followers.append(tweet.user.followers_count)
             user_nb_followings.append(tweet.user.friends_count)
+            user_nb_status.append(tweet.user.statuses_count)
 
-    return tweet_textual_content, user_id, tweet_id, user_account_age, tweet_nb_rt, user_nb_followers, user_nb_followings
+    return tweet_textual_content, user_id, tweet_id, user_creation_date, tweet_nb_rt, user_nb_followers, user_nb_followings, user_nb_status
 
 
 def transform_to_dataframe(tab):
@@ -46,7 +48,8 @@ def transform_to_dataframe(tab):
         'tweet_textual_content': tab[0],
         'user_id': tab[1],
         'tweet_id': tab[2],
-        'user_account_age': tab[3],
+        'user_creation_date': tab[3],
         'tweet_nb_rt': tab[4],
         'user_nb_followers': tab[5],
-        'user_nb_followings': tab[6]})
+        'user_nb_followings': tab[6],
+        'user_nb_status': tab[7]})
