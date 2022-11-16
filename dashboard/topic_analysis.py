@@ -31,16 +31,16 @@ def topic_analysis(queries, tweet_number):
         while Credibility_index2[j]!=p:
             j+=1
         A.append((Tweets[j],Credibility_index2[j]))
-        Tweets2=Tweets2[:j]+ Tweets2[j+1:]
-        Credibility_index2=Credibility_index2[:j]+ Credibility_index2[j+1:]
+        Tweets2=np.concatenate((Tweets2[:j],Tweets2[j+1:]))
+        Credibility_index2=np.concatenate((Credibility_index2[:j],Credibility_index2[j+1:]))
     for i in range(3):
         p=np.max(Credibility_index2)
         j=0
         while Credibility_index2[j]!=p:
             j+=1
         B.append((Tweets2[j],Credibility_index2[j]))
-        Tweets2=Tweets2[:j]+ Tweets2[j+1:]
-        Credibility_index2=Credibility_index2[:j]+ Credibility_index2[j+1:]
+        Tweets2=np.concatenate((Tweets2[:j],Tweets2[j+1:]))
+        Credibility_index2=np.concatenate((Credibility_index2[:j],Credibility_index2[j+1:]))
 
 
 
@@ -51,7 +51,7 @@ def topic_analysis(queries, tweet_number):
     div.append(html.H3('Crédibilité des tweets'))
     div.append(histo)
     div.append(html.H3('3 tweets les plus fakes'))
-    div.append(html.H4(A[0][0]['tweet_textual_content'] + '/n' + A[1][0['tweet_textual_content']] + '/n' + A[2][0]['tweet_textual_content']))
+    div.append(html.H4(A[0][0]['tweet_textual_content'] + '/n' + A[1][0]['tweet_textual_content'] + '/n' + A[2][0]['tweet_textual_content']))
 
     return div
     
