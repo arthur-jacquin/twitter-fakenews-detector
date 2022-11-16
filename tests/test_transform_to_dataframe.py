@@ -6,8 +6,7 @@ from pytest import *
 
 def test_transform_to_dataframe():
     tweet = collect_tweets("trump", 3)
-    data = transform_to_dataframe(
-        tweet[0], tweet[1], tweet[2], tweet[3], tweet[4], tweet[5], tweet[6])
+    data = transform_to_dataframe(tweet)
     assert 'tweet_textual_content' in data.columns
     assert 'user_id' in data.columns
     assert 'tweet_id' in data.columns
