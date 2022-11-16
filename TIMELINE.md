@@ -5,7 +5,7 @@
 
 # Sprint 2: Premières analyses
     -fonctionnalité 4 : Modele MVP de ML pour l'analyse textuelle de fake news
-    -fonctionnalité 5 : Etablir la credibilité de l'utilisateur qui a oublié le tweets (age du compte, follows/followers, tweets/retweets)
+    -fonctionnalité 5 : Etablir la credibilité de l'utilisateur qui a oublié le tweets (age du compte, follows/followers, tweets/age du compte)
 
 # Sprint 3: Première notation
     -fonctionnalité 6 : Mettre en place la note finale par pondération des différents facteurs
