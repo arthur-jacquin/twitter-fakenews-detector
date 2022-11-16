@@ -10,12 +10,16 @@ Liste des coefficients, modifiable, dans l'ordre :
 - age compte
 - ratio publi/age
 - ratio follows/followers """
-coeff = np.array([0.2,0.2,0.2,0.2,0.1,0.1])
-assert coeff.sum() == 1 
+coeff = np.array([0.2, 0.2, 0.2, 0.2, 0.1, 0.1])
+assert coeff.sum() == 1
+
 
 def credibility(tweet):
     '''
     Compute a real between 0 and 1 reflecting the credibility of a tweet.
     The higher the number is, the most likely the tweet is fake news.
     '''
-    return ml_analysis(tweet)*coeff[0,0] + coeff[0,1]/math.log(account_age(tweet)) + coeff[0,2]*ratio_of_statuses_account_age(tweet) + coeff[0,3]*number_of_following(tweet)/number_of_followers(tweet)
+    return ml_analysis(tweet)*coeff[0, 0] \
+        + coeff[0, 1]/math.log(account_age(tweet)) \
+        + coeff[0, 2]*ratio_of_statuses_account_age(tweet) \
+        + coeff[0, 3]*number_of_following(tweet)/number_of_followers(tweet)
