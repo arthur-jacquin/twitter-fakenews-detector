@@ -1,7 +1,6 @@
 from dashboard.topic_analysis import topic_analysis
 
 from dash import Dash, dcc, html, Input, Output, State
-import dash_daq as daq
 
 app = Dash(__name__)
 
@@ -10,6 +9,15 @@ app.layout = html.Div([
     # Title
     html.H1('Twitter analysor'),
 
+    # Ecological banner
+    html.Div(id='ecology', children=[
+        html.H3('Be aware of your environmental impact!'),
+        html.P('This application queries Twitter servors and process them.'),
+        html.P('While the power consumption of Twitter servors can not be known, \
+            the CarbonAI package will measure the power consumption of our server. \
+            The higher the number of tweets, the higher the consumption. Please pay attention ;)'),
+        html.P('The processing also use a machine-learning model that took  to train.'),
+    ]),
 
     # Input area
     html.H3('Topics'),
@@ -23,7 +31,6 @@ app.layout = html.Div([
     dcc.Slider(0, 100, value=10, id='slider'),
 
     html.Button('Submit', id='submit-button', n_clicks=0),
-
 
     # Analysis
     html.Div(id='analysis')
