@@ -1,4 +1,4 @@
-from pytest import *
+
 from credibility.credibility_analysis import ml_analysis
 from twitter.collector import collect_tweets, transform_to_dataframe
 

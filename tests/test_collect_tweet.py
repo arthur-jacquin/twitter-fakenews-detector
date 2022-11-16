@@ -1,5 +1,4 @@
 from twitter.collector import collect_tweets
-from pytest import *
 
 
 def test_collect_tweets():

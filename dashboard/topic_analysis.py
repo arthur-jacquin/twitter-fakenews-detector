@@ -41,4 +41,9 @@ def topic_analysis(queries, tweet_number):
         B.append((Tweets2[j],Credibility_index2[j]))
         Tweets2=Tweets2[:j]+ Tweets2[j+1:]
         Credibility_index2=Credibility_index2[:j]+ Credibility_index2[j+1:]
+
+    #Histogramme
+    histo = dcc.Graph(figure=plt.hist(Credibility_index))
+
+    return 
     
