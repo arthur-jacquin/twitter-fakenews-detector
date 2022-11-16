@@ -36,3 +36,12 @@ def topic_analysis(queries, tweet_number):
         Credibility_index=Credibility_index[:j]+ Credibility_index[j+1:]
     
 
+
+    Credibility_index = []
+    Tweets = []
+    data = collect_tweets(queries,tweet_number)
+    data = transform_to_dataframe(data)
+    for _, row in data.iterrows():
+        Tweets.append(row)
+    for i in range(len(Tweets)):
+        Credibility_index.append(credibility(Tweets[i]))

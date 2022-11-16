@@ -27,7 +27,8 @@ def collect_tweets(queries, tweet_number):
 
     for query in queries_list:
         # Query
-        res = api.search_tweets(query, lang='en', count=tweet_number)
+        res = api.search_tweets(
+            query, lang='en', result='popular', count=tweet_number)
 
         # Collect
         for tweet in res:
