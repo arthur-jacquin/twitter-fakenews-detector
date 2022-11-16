@@ -16,6 +16,7 @@ def collect_tweets(queries, tweet_number):
     # Data to collect
     tweet_textual_content = []
     user_id = []
+    user_name = []
     tweet_id = []
     user_creation_date = []
     tweet_nb_rt = []
@@ -41,6 +42,7 @@ def collect_tweets(queries, tweet_number):
         for tweet in res:
             tweet_textual_content.append(tweet.text)
             user_id.append(tweet.user.id)
+            user_name.append(tweet.author.screen_name)
             tweet_id.append(tweet.id)
             user_creation_date.append(tweet.user.created_at)
             tweet_nb_rt.append(tweet.retweet_count)
@@ -51,6 +53,7 @@ def collect_tweets(queries, tweet_number):
     return {
         'tweet_textual_content': tweet_textual_content,
         'user_id': user_id,
+        'user_name': user_name,
         'tweet_id': tweet_id,
         'user_creation_date': user_creation_date,
         'tweet_nb_rt': tweet_nb_rt,
