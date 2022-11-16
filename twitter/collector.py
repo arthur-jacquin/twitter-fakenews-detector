@@ -3,6 +3,11 @@ from twitter.connection_setup import twitter_setup
 import tweepy
 import pandas as pd
 
+
+def transform_to_dataframe(dict_res):
+    return pd.DataFrame(dict_res)
+
+
 def collect_tweets(queries, tweet_number):
     '''
     Cette fonction prend en entrée un string de mots clés et un nombre de tweets à analyser
@@ -51,25 +56,33 @@ def collect_tweets(queries, tweet_number):
         'user_nb_status': user_nb_status,
     }
 
-def transform_to_dataframe(dict_res):
-    return pd.DataFrame(dict_res)
 
-
-def get_rt_author_ids(tweet_id, number):
+def get_rt_author_info(tweet_id, number):
     '''
-    Get the author IDs of the retweets of tweet_id.
+    Get info on the author of the retweets of tweet_id.
     '''
-    res = []
+    # Data to collect
+    user_creation_date = []
+    user_nb_followers = []
+    user_nb_followings = []
+    user_nb_status = []
 
     # Connection setup
     api = twitter_setup()
 
     # Query
-    res = api.retweets(tweet_id, number)
+    res = api.get_retweets(tweet_id, count=number, trim_user=True)
 
+    # Collect
     for tweet in res:
-        res.append(tweet.user.id)
+        user_creation_date.append(tweet.user.created_at)
+        user_nb_followers.append(tweet.user.followers_count)
+        user_nb_followings.append(tweet.user.friends_count)
+        user_nb_status.append(tweet.user.statuses_count)
 
-    return res
-
-
+    return {
+        'user_creation_date': user_creation_date,
+        'user_nb_followers': user_nb_followers,
+        'user_nb_followings': user_nb_followings,
+        'user_nb_status': user_nb_status,
+    }
