@@ -1,5 +1,6 @@
 from time import time, mktime, strptime
 
+
 def account_age(tweet):
     '''
     Get the account age (in seconds) of the tweet author.
@@ -11,14 +12,14 @@ def number_of_followers(tweet):
     '''
     Get the number of followers of the tweet author.
     '''
-    return tweet['user_nb_of_followers']
+    return tweet['user_nb_followers']
 
 
 def number_of_following(tweet):
     '''
     Get the number of following of the tweet author.
     '''
-    return tweet['user_nb_of_followers']
+    return tweet['user_nb_followings']
 
 
 def ratio_of_statuses_account_age(tweet):
