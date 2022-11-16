@@ -19,8 +19,8 @@ def topic_analysis(queries, tweet_number):
     for _, row in data.iterrows():
         Tweets.append(row)
     for i in range(len(Tweets)):
-        Credibility_index.append(credibility(Tweets[i]))
-    
+        cred,a = credibility(Tweets[i])
+        Credibility_index.append(cred)
     Tweets2=np.copy(Tweets)
     Credibility_index2=np.copy(Credibility_index)    #On modifie les 2 listes copiées
 
@@ -42,8 +42,16 @@ def topic_analysis(queries, tweet_number):
         Tweets2=Tweets2[:j]+ Tweets2[j+1:]
         Credibility_index2=Credibility_index2[:j]+ Credibility_index2[j+1:]
 
+
+
     #Histogramme
     histo = dcc.Graph(figure=plt.hist(Credibility_index))
+
+    div = [html.H2('Résultats')]
+    div.append(html.H3('Crédibilité des tweets'))
+    div.append(histo)
+    div.append(html.H3('3 tweets les plus fakes'))
+    div.append(html.H4('Tweet' + A[0][0][]))
 
     return histo
     
