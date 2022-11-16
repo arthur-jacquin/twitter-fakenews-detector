@@ -11,13 +11,12 @@ def topic_analysis(queries, tweet_number):
     '''
     #Séparation en sous-requêtes
     Queries = re.split('/n',queries)
-
+    Credibility_index = []
+    Tweets = []
     for k in range(len(Queries)):
         data = collect_tweets(Queries[k],tweet_number)
         data = transform_to_dataframe(data)
-        Credibility_index = []
-        Tweets = []
         for _, row in data.iterrows():
             Tweets.append(row)
-        for i in range(len(Tweets)):
-            Credibility_index.append(credibility(Tweets[i]))
+    for i in range(len(Tweets)):
+        Credibility_index.append(credibility(Tweets[i]))
