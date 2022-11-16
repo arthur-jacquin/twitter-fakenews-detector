@@ -22,7 +22,7 @@ def collect_tweets(queries, tweet_number):
 
     for query in queries_list:
         # Query
-        res = api.search_tweets(query, lang='en', count=count)
+        res = api.search_tweets(query, lang='en', count=tweet_number)
 
         # Collect
         for tweet in res:
@@ -40,9 +40,9 @@ def collect_tweets(queries, tweet_number):
 def transform_to_dataframe(tweet_textual_content, user_id, tweet_id, user_account_age, tweet_nb_rt, user_nb_followers, user_nb_followings):
     return pd.DataFrame({
         'tweet_textual_content': tweet_textual_content,
-        'RTs': user_id,
-        'Source': tweet_id,
-        'author': user_account_age,
-        'author': tweet_nb_rt,
-        'author': user_nb_followers,
-        'author': user_nb_followings})
+        'user_id': user_id,
+        'tweet_id': tweet_id,
+        'user_account_age': user_account_age,
+        'tweet_nb_rt': tweet_nb_rt,
+        'user_nb_followers': user_nb_followers,
+        'user_nb_followings': user_nb_followings})
