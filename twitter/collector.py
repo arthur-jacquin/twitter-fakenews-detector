@@ -5,6 +5,10 @@ import pandas as pd
 
 
 def collect_tweets(queries, tweet_number):
+    """
+    Cette fonction prend en entrée un string de mots clés et un nombre de tweets à analyser
+    return: les infos que l'on souhaite pour chaque tweet sous forme de listes
+    """
     # Data to collect
     tweet_textual_content = []
     user_id = []
