@@ -15,6 +15,6 @@ def test_aggregator():
 def test_utils():
     assert force_0_1(-.2) == 0
     assert force_0_1(.5) == .5
-    assert force_0_1(1.3) == 1.3
+    assert force_0_1(1.3) == 1
 
     assert barycentre([(0, 1), (1, 3)]) == .75
