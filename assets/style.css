@@ -42,3 +42,11 @@ button {
     border: 1px;
     color: rgb(36, 114, 138);
 }
+
+#ecology {
+    background-color: #eee;
+    border-radius: 1.2em;
+    border-width: 3px;
+    padding: .1em 1em;
+    margin: 1em 0;
+}
