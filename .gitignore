@@ -1,3 +1,4 @@
 twitter/credentials.py
 __pycache__
 *.pyc
+.coverage
