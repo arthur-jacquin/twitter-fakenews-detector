@@ -29,10 +29,13 @@ def collect_tweets(queries, tweet_number):
     # Parsing of queries
     queries_list = queries.split('\n')
 
+    if queries_list == []:
+        raise ZeroDivisionError
+
     for query in queries_list:
         # Query
         res = api.search_tweets(
-            query, lang='en', result='popular', count=tweet_number)
+            query, lang='en', result='popular', count=int(tweet_number/len(queries_list)))
 
         # Collect
         for tweet in res:
