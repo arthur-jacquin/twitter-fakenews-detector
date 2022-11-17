@@ -115,3 +115,21 @@ def get_tweet_info(tweet_id):
         'user_nb_followings': tweet.user.friends_count,
         'user_nb_status': tweet.user.statuses_count,
     }
+
+
+def get_user_info(user_id):
+    '''
+    Get info on the user of id user_id.
+    '''
+    # Connection setup
+    api = twitter_setup()
+
+    # Query
+    user = api.get_user(user_id)
+
+    return {
+        'user_creation_date': user.created_at,
+        'user_nb_followers': user.followers_count,
+        'user_nb_followings': user.friends_count,
+        'user_nb_status': user.statuses_count,
+    }

@@ -38,3 +38,12 @@ def test_get_tweet_info():
     assert 'user_nb_followers' in tweet
     assert 'user_nb_followings' in tweet
     assert 'user_nb_status' in tweet
+
+
+def test_get_user_info():
+    user = get_tweet_info("https://twitter.com/lecartographe")
+
+    assert 'user_creation_date' in user
+    assert 'user_nb_followers' in user
+    assert 'user_nb_followings' in user
+    assert 'user_nb_status' in user
