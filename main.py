@@ -31,7 +31,8 @@ app.layout = html.Div([
                 style={'width': '100%', 'height': 60},
             ),
             html.H3('Number of tweets to fetch'),
-            dcc.Slider(0, 100, value=10, id='slider'),
+            dcc.Slider(1, 3, 0.01, value=1, id='slider', marks={
+                       i: str(10**i) for i in range(1, 4)}),
             html.Button('Submit', id='submit-button', n_clicks=0),
 
             html.Div(id='analysis')
@@ -66,7 +67,8 @@ app.layout = html.Div([
     State('text-input', 'value'),
     State('slider', 'value'),
 )
-def update_output(n_clicks, queries, tweet_number):
+def update_output(n_clicks, queries, tweet_number_linear):
+    tweet_number = int(10**(tweet_number_linear))
     if n_clicks > 0:
         return topic_analysis(queries, tweet_number)
 
