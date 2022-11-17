@@ -29,23 +29,23 @@ with power_meter(
     # Import du dataset d'entraînement
 
     # dataset 1
-    """data_train = load_files(r"..\Dataset_Fake_News_eng\Trainset")
-    X_train, y_train = data_train.data, data_train.target"""
+    data_train = load_files(r"..\Dataset_Fake_News_eng\Trainset")
+    X_train, y_train = data_train.data, data_train.target
 
     # dataset 2
     """X_train = fk[0:10001] + lg[0:10001]
     y_train = fk_label[0:10001] + lg_label[0:10001]"""
 
     # dataset 3
-    X_train = Xtrain
-    y_train = ytrain
+    """X_train = Xtrain
+    y_train = ytrain"""
 
     #############################################################
     # import du dataset de test
 
     # dataset 1
-    """data_test = load_files(r"..\Dataset_Fake_News_eng\testing")
-    X_test, y_test = data_test.data, data_test.target"""
+    data_test = load_files(r"..\Dataset_Fake_News_eng\testing")
+    X_test, y_test = data_test.data, data_test.target
 
     # dataset 3
     X_test = Xtest
