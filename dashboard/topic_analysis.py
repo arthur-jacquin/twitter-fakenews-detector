@@ -114,10 +114,17 @@ def topic_analysis(queries, tweet_number):
     number_of_fetched_tweets = len(tweets)
     for i in range(int(0.7*number_of_fetched_tweets), number_of_fetched_tweets):
         vocab += get_vocab(tweets[i]) + ' '
-    wordcloud_img = WordCloud(max_font_size=40).generate(vocab).to_image()
+    wordcloud_img = WordCloud(
+        background_color='white',
+        max_font_size=40,
+        colormap='CMRmap',
+        width=600,
+        height=400,
+    ).generate(vocab).to_image()
     img = BytesIO()
     wordcloud_img.save(img, format='PNG')
     res.append(html.Img(
-        src=f'data:image/png;base64,{base64.b64encode(img.getvalue()).decode()}'))
+        src=f'data:image/png;base64,{base64.b64encode(img.getvalue()).decode()}',
+        className='center'))
 
     return res
