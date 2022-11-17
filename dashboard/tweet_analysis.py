@@ -86,7 +86,7 @@ def html_of_tweet(tweet, cred, info, folded=True, NB_RT=20):
     ])
 
 
-def parse_user_input(input):
+def parse_tweet_input(input):
     if input[:4] == "http":
         input = (input.split('/')[-1]).split('?')[0]
     return int(input)
