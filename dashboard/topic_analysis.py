@@ -1,10 +1,15 @@
 from credibility.aggregator import credibility
 from deep_analysis.sentiment_analysis import sentiment_analysis
+from deep_analysis.get_vocab import get_vocab
 from twitter.collector import collect_tweets, transform_to_dataframe
 
 from dash import dcc, html
 import pandas as pd
 import plotly.express as px
+from wordcloud import WordCloud
+#import matplotlib.pyplot as plt
+from io import BytesIO
+import base64
 
 COLOR = px.colors.sequential.RdBu
 
@@ -101,5 +106,17 @@ def topic_analysis(queries, tweet_number):
         color_continuous_scale=COLOR,
     )
     res.append(dcc.Graph(figure=cred_subjectivity_fig))
+
+    # Related words
+    res.append(html.H3('Related vocabulary'))
+    vocab = ''
+    n = len(tweets)
+    for i in range(int(0.7*n), n):
+        vocab += get_vocab(tweets[i]) + ' '
+    wordcloud_img = WordCloud(max_font_size=40).generate(vocab).to_image()
+    img = BytesIO()
+    wordcloud_img.save(img, format='PNG')
+    res.append(html.Img(
+        src=f'data:image/png;base64,{base64.b64encode(img.getvalue()).decode()}'))
 
     return res
