@@ -50,8 +50,8 @@ def my_function():
     X_test, y_test = data_test.data, data_test.target
 
     # dataset 3
-    X_test = Xtest
-    y_test = ytest
+    """X_test = Xtest
+    y_test = ytest"""
 
     #############################################################
     # Nettoyage des textes du dataset d'entraînement
