@@ -24,11 +24,11 @@ def to_li_item(name, value=None, score=None, description=None):
     """
 
     res = [html.Span(name, className='category')]
-    if value:
+    if value != None:
         res.append(html.Span(value, className='value'))
-    if description:
+    if description != None:
         res.append(html.Span(description, className='description'))
-    if score:
+    if score != None:
         if score >= 0.8:
             class_name = 'score_bad'
         elif score <= 0.5:
