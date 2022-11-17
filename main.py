@@ -1,4 +1,5 @@
 from dashboard.topic_analysis import topic_analysis
+from dashboard.tweet_analysis import parse_user_input, html_of_tweet_id
 
 from dash import Dash, dcc, html, Input, Output, State
 
@@ -92,9 +93,7 @@ def update_output(n_clicks, user):
 )
 def update_output(n_clicks, tweet):
     if n_clicks > 0:
-        return html.Div([
-            html.P(f'{tweet}')
-        ])
+        return html_of_tweet_id(parse_user_input(tweet))
 
 
 if __name__ == '__main__':

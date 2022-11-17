@@ -1,6 +1,6 @@
 from deep_analysis.sentiment_analysis import sentiment_analysis
-from twitter.collector import get_rt_author_info, transform_to_dataframe
-from credibility.aggregator import author_credibility
+from twitter.collector import get_rt_author_info, transform_to_dataframe, get_tweet_info
+from credibility.aggregator import author_credibility, credibility
 from dashboard.utils import format_age, format_activity
 
 from dash import dcc, html
@@ -21,7 +21,7 @@ def to_li_item(name, value=None, score=None, description=None):
     return html.Li(children=res)
 
 
-def html_of_tweet(tweet, cred, info, folded=True, NB_RT=100):
+def html_of_tweet(tweet, cred, info, folded=True, NB_RT=20):
     '''
     Display a tweet.
 
@@ -101,3 +101,9 @@ def parse_user_input(input):
     if input[:4] == "http":
         input = (input.split('/')[-1]).split('?')[0]
     return int(input)
+
+
+def html_of_tweet_id(id):
+    tweet = get_tweet_info(id)
+    cred, info = credibility(tweet)
+    return [html.H2('Results'), html_of_tweet(tweet, cred, info, folded=False)]
