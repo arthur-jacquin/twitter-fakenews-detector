@@ -17,3 +17,11 @@ def barycentre(points):
 def force_0_1(t):
     ''' Map t between 0 and 1 '''
     return min(max(0, t), 1)
+
+
+def format_age(age):
+    return age
+
+
+def format_activity(activity):
+    return activity

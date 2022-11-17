@@ -50,3 +50,8 @@ button {
     padding: .1em 1em;
     margin: 1em 0;
 }
+
+.score {
+    float: right;
+    color: red;
+}
