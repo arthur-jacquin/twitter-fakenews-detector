@@ -25,7 +25,8 @@ app.layout = html.Div([
         html.P('While the power consumption of Twitter servors can not be known, \
             the CarbonAI package will measure the power consumption of our server. \
             The higher the number of tweets, the higher the consumption. Please pay attention ;)'),
-        html.P('The processing also use a machine-learning model that took  to train.'),
+        html.P(
+            'The processing also use a machine-learning model, which is power hungry to train.'),
     ]),
 
     dcc.Tabs([
