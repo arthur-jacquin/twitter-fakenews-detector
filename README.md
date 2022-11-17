@@ -89,3 +89,6 @@ journal : International Conference on Computational Linguistics (COLING),
 year : 2018
 - LIAR Dataset author : William Wang, william@cs.ucsb.edu
 
+diapo 
+https://docs.google.com/presentation/d/17r5GMkfw078WZiYudzLYgj-E9xjYL0YFxJ5U_GvQ6SQ/edit?usp=sharing
+
