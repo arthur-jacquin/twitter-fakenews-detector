@@ -1,3 +1,17 @@
+from dash import html
+
+
+def to_li_item(name, value=None, score=None, description=None):
+    res = [html.Span(name, className='category')]
+    if value:
+        res.append(html.Span(value, className='value'))
+    if description:
+        res.append(html.Span(description, className='description'))
+    if score:
+        res.append(html.Span(str(round(score, 2)), className='score'))
+    return html.Li(children=res)
+
+
 def barycentre(points):
     '''
     Renvoie un barycentre de points

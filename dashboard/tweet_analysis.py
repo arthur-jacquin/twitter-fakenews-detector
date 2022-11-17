@@ -1,24 +1,13 @@
 from deep_analysis.sentiment_analysis import sentiment_analysis
 from twitter.collector import get_rt_author_info, transform_to_dataframe, get_tweet_info
 from credibility.aggregator import author_credibility, credibility
-from dashboard.utils import format_age, format_activity
+from dashboard.utils import to_li_item, format_age, format_activity
 
 from dash import dcc, html
 import pandas as pd
 import plotly.express as px
 
 COLOR = px.colors.sequential.RdBu
-
-
-def to_li_item(name, value=None, score=None, description=None):
-    res = [html.Span(name, className='category')]
-    if value:
-        res.append(html.Span(value, className='value'))
-    if description:
-        res.append(html.Span(description, className='description'))
-    if score:
-        res.append(html.Span(str(round(score, 2)), className='score'))
-    return html.Li(children=res)
 
 
 def html_of_tweet(tweet, cred, info, folded=True, NB_RT=20):
