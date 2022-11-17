@@ -64,8 +64,50 @@ def force_0_1(t):
 
 
 def format_age(age):
-    return age
+    """ Format an age.
+
+    Parameters
+    ----------
+    age : float
+        Number of seconds.
+
+    Returns
+    -------
+    string
+        Formatted age.
+    """
+
+    if age < 3600*24:  # Less than a day old
+        return f'{int(age/3600)} hour(s)'
+    elif age < 3600*24*30:  # Less than a month old
+        return f'{int(age/(3600*24))} day(s)'
+    elif age < 3600*24*30*12:  # Less than a year old
+        return f'{int(age/(3600*24*30))} month(s)'
+    else:
+        return f'{int(age/(3600*24*365))} year(s)'
 
 
 def format_activity(activity):
-    return activity
+    """ Format an activity.
+
+    Parameters
+    ----------
+    activity : float
+        Number of seconds.
+
+    Returns
+    -------
+    string
+        Formatted activity.
+    """
+
+    statuses_per_day = activity*3600*24
+
+    if statuses_per_day > 1:  # More than once a day
+        return f'{int(statuses_per_day)} status(es) per day'
+    elif 30*statuses_per_day > 1:  # More than once a month
+        return f'{int(statuses_per_day*30)} status(es) per month'
+    elif 365*statuses_per_day > 1:  # More than once a year
+        return f'{int(statuses_per_day*365)} status(es) per year'
+    else:
+        return 'Less than once a year'
