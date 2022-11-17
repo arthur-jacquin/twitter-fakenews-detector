@@ -1,8 +1,15 @@
+""" Fake News Detector.
+
+See the README.md for more informations.
+
+Create and launch a web server hosting the Fake News Detector web app.
+"""
+
+from dash import Dash, dcc, html, Input, Output, State
+
 from dashboard.topic_analysis import topic_analysis
 from dashboard.tweet_analysis import parse_tweet_input, html_of_tweet_id
 from dashboard.user_analysis import parse_user_input, html_of_user_id
-
-from dash import Dash, dcc, html, Input, Output, State
 
 app = Dash(__name__)
 
@@ -70,9 +77,26 @@ app.layout = html.Div([
     State('slider', 'value'),
 )
 def update_output_topic(n_clicks, queries, tweet_number_linear):
+    """ Generate and return the topic analysis
+
+    Parameters
+    ----------
+    n_clicks : int
+        The number of time the submit button has been clicked.
+    queries : string
+        The query written by the user in the input area.
+    tweet_number_linear: float
+        The logarithm of the number of tweets to fetch.
+
+    Returns
+    -------
+    DASH element
+        The topic analysis.
+    """
     tweet_number = int(10**(tweet_number_linear))
-    if n_clicks > 0:
+    if n_clicks > 0 and queries:
         return topic_analysis(queries, tweet_number)
+    return None
 
 
 @app.callback(
@@ -81,8 +105,23 @@ def update_output_topic(n_clicks, queries, tweet_number_linear):
     State('user-input', 'value'),
 )
 def update_output_user(n_clicks, user):
-    if n_clicks > 0:
+    """ Generate and return the user analysis
+
+    Parameters
+    ----------
+    n_clicks : int
+        The number of time the submit button has been clicked.
+    user : string
+        The user name or profile-page URL written by the user.
+
+    Returns
+    -------
+    DASH element
+        The user analysis.
+    """
+    if n_clicks > 0 and user:
         return html_of_user_id(parse_user_input(user))
+    return None
 
 
 @app.callback(
@@ -91,8 +130,23 @@ def update_output_user(n_clicks, user):
     State('tweet-input', 'value'),
 )
 def update_output_tweet(n_clicks, tweet):
-    if n_clicks > 0:
+    """ Generate and return the tweet analysis
+
+    Parameters
+    ----------
+    n_clicks : int
+        The number of time the submit button has been clicked.
+    tweet : string
+        The id or sharing URL of a tweet.
+
+    Returns
+    -------
+    DASH element
+        The tweet analysis.
+    """
+    if n_clicks > 0 and tweet:
         return html_of_tweet_id(parse_tweet_input(tweet))
+    return None
 
 
 if __name__ == '__main__':

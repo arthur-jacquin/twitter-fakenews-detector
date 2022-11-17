@@ -1,12 +1,22 @@
-from twitter.credentials import *
+""" Module to connect to the Twitter's API
+
+CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN and ACCESS_SECRET credentials must be defined in twitter/credentials.py.
+"""
+
 import tweepy
+
+from twitter.credentials import CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_SECRET
 
 
 def twitter_setup():
-    """
-    Utility function to setup the Twitter's API
-    with an access keys provided in a file credentials.py
-    :return: the authentified API
+    """ Setup the connection to the Twitter's API
+
+    Parameters
+    ----------
+
+    Returns
+    -------
+    Authentified Twitter's API
     """
     # Authentication and access using keys:
     auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)

@@ -1,25 +1,40 @@
+""" Compute a topic analysis display """
+
+from io import BytesIO
+import base64
+
+from dash import dcc, html
+import pandas as pd
+import plotly.express as px
+from wordcloud import WordCloud
+
 from credibility.aggregator import credibility
 from deep_analysis.sentiment_analysis import sentiment_analysis
 from deep_analysis.get_vocab import get_vocab
 from twitter.collector import collect_tweets, transform_to_dataframe
 from dashboard.tweet_analysis import html_of_tweet
 
-from dash import dcc, html
-import pandas as pd
-import plotly.express as px
-from wordcloud import WordCloud
-from io import BytesIO
-import base64
-
 COLOR = px.colors.sequential.RdBu
 
 
 def topic_analysis(queries, tweet_number):
-    '''
-    Compute the analysis of the query, return a DASH element.
-    '''
+    """ Compute the analysis of the query.
+
+    Parameters
+    ----------
+    queries : string
+        The query written by the user in the input area.
+    tweet_number : int
+        The number of tweets to fetch.
+
+    Returns
+    -------
+    DASH element
+        The topic analysis.
+    """
+
     # Collect tweets
-    df = transform_to_dataframe(collect_tweets(queries, tweet_number))
+    dataframe = transform_to_dataframe(collect_tweets(queries, tweet_number))
 
     # Process tweets
     creds = []
@@ -28,7 +43,7 @@ def topic_analysis(queries, tweet_number):
     subjectivities = []
     tweets = []
     rts = []
-    for _, tweet in df.iterrows():
+    for _, tweet in dataframe.iterrows():
         tweets.append(tweet)
         cred, info = credibility(tweet)
         creds.append(cred)
@@ -53,7 +68,6 @@ def topic_analysis(queries, tweet_number):
             'virality': rts,
         }),
         x='credibility', y='virality',
-        # range_x=[0., 1.], range_y=[0., max(rts)],
         marginal_x="histogram", marginal_y="histogram",
         color_continuous_scale=COLOR,
     )
@@ -76,7 +90,6 @@ def topic_analysis(queries, tweet_number):
             'polarity': polarities,
         }),
         x='credibility', y='polarity',
-        # range_x=[0., 1.], range_y=[0., max(rts)],
         marginal_x="histogram", marginal_y="histogram",
         color_continuous_scale=COLOR,
     )
@@ -90,7 +103,6 @@ def topic_analysis(queries, tweet_number):
             'subjectivity': subjectivities,
         }),
         x='credibility', y='subjectivity',
-        # range_x=[0., 1.], range_y=[0., max(rts)],
         marginal_x="histogram", marginal_y="histogram",
         color_continuous_scale=COLOR,
     )
@@ -99,8 +111,8 @@ def topic_analysis(queries, tweet_number):
     # Related words
     res.append(html.H3('Related vocabulary'))
     vocab = ''
-    n = len(tweets)
-    for i in range(int(0.7*n), n):
+    number_of_fetched_tweets = len(tweets)
+    for i in range(int(0.7*number_of_fetched_tweets), number_of_fetched_tweets):
         vocab += get_vocab(tweets[i]) + ' '
     wordcloud_img = WordCloud(max_font_size=40).generate(vocab).to_image()
     img = BytesIO()

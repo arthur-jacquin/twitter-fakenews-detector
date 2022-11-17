@@ -1,17 +1,42 @@
-from twitter.connection_setup import twitter_setup
+""" Defines various functions to use the Twitter's API """
 
 import pandas as pd
 
+from twitter.connection_setup import twitter_setup
+
 
 def transform_to_dataframe(dict_res):
+    """ Transform a dict in a pandas dataframe.
+
+    Parameters
+    ----------
+    dict_res : dict
+        Any dict containing equally-sized, single-type lists as values.
+
+    Returns
+    -------
+    pandas dataframe
+        The dataframe version of the data stored in dict_res.
+    """
     return pd.DataFrame(dict_res)
 
 
 def collect_tweets(queries, tweet_number):
-    '''
-    Cette fonction prend en entrée un string de mots clés et un nombre de tweets à analyser
-    return: les infos que l'on souhaite pour chaque tweet sous forme de listes
-    '''
+    """ Extract tweet_number tweets about queries topics.
+
+    Parameters
+    ----------
+    queries : string
+        Keywords, on several lines if needed.
+    tweet_number : int
+        Number of tweets to fetch.
+
+    Returns
+    -------
+    dict
+        A selection of informations on fetched tweets.
+    """
+
     # Data to collect
     tweet_textual_content = []
     user_id = []
@@ -29,6 +54,7 @@ def collect_tweets(queries, tweet_number):
     # Parsing of queries
     queries_list = queries.split('\n')
 
+    # Check if queries is not empty
     if queries_list == []:
         raise ZeroDivisionError
 
@@ -63,9 +89,21 @@ def collect_tweets(queries, tweet_number):
 
 
 def get_rt_author_info(tweet_id, number):
-    '''
-    Get info on the author of the retweets of tweet_id.
-    '''
+    """ Get info on the authors of the retweets of tweet_id.
+
+    Parameters
+    ----------
+    tweet_id : id
+        Tweet ID.
+    number : int
+        Number of retweets to fetch.
+
+    Returns
+    -------
+    dict
+        A selection of informations on fetched tweets.
+    """
+
     # Data to collect
     user_creation_date = []
     user_nb_followers = []
@@ -94,9 +132,19 @@ def get_rt_author_info(tweet_id, number):
 
 
 def get_tweet_info(tweet_id):
-    '''
-    Get info on the tweet of id tweet_id.
-    '''
+    """ Get info on a specific tweet.
+
+    Parameters
+    ----------
+    tweet_id : id
+        Tweet ID.
+
+    Returns
+    -------
+    dict
+        A selection of informations on fetched tweets.
+    """
+
     # Connection setup
     api = twitter_setup()
 
@@ -117,9 +165,19 @@ def get_tweet_info(tweet_id):
 
 
 def get_user_info(user_id):
-    '''
-    Get info on the user of id user_id.
-    '''
+    """ Get info on a specific user.
+
+    Parameters
+    ----------
+    user_id : id
+        User ID.
+
+    Returns
+    -------
+    dict
+        A selection of informations on the user.
+    """
+
     # Connection setup
     api = twitter_setup()
 

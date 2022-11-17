@@ -1,18 +1,20 @@
-from deep_analysis.sentiment_analysis import sentiment_analysis
-from twitter.collector import get_rt_author_info, transform_to_dataframe, get_tweet_info
-from credibility.aggregator import author_credibility, credibility
-from dashboard.utils import to_li_item, format_age, format_activity
+""" Compute a tweet analysis display """
 
 from dash import dcc, html
 import pandas as pd
 import plotly.express as px
 
+from deep_analysis.sentiment_analysis import sentiment_analysis
+from twitter.collector import get_rt_author_info, transform_to_dataframe, get_tweet_info
+from credibility.aggregator import author_credibility, credibility
+from dashboard.utils import to_li_item, format_age, format_activity
+
 COLOR = px.colors.sequential.RdBu
+NB_RT = 20
 
 
-def html_of_tweet(tweet, cred, info, folded=True, NB_RT=20):
-    '''
-    Display a tweet.
+def html_of_tweet(tweet, cred, info, folded=True):
+    """ Compute the analysis of the tweet.
 
     Folded mode: textual content, author name.
     Added in unfolded mode:
@@ -26,7 +28,24 @@ def html_of_tweet(tweet, cred, info, folded=True, NB_RT=20):
     - polarity (value, description)
     - subjectivity (value, description)
     - retweeters credibility repartition
-    '''
+
+    Parameters
+    ----------
+    tweet : dataframe row/dict
+        Tweet to analyse.
+    cred : float
+        Credibility of the tweet.
+    info : dict
+        Additionnal informations on the credibility analysis.
+    folded : bool (optionnal, defaults to True)
+        Decide wether advanced analytics are displayed directly.
+
+    Returns
+    -------
+    DASH element
+        The topic analysis.
+    """
+
     # Extract informations
     content = tweet['tweet_textual_content']
     author = tweet['user_name']
@@ -35,14 +54,15 @@ def html_of_tweet(tweet, cred, info, folded=True, NB_RT=20):
     age, age_cred = info['author'][1]['age']
     activity, activity_cred = info['author'][1]['activity']
     follow, follow_cred = info['author'][1]['follow']
-    rt = tweet['tweet_nb_rt']
+    nb_rt = tweet['tweet_nb_rt']
     polarity, subjectivity = sentiment_analysis(tweet)
 
     # Extract retweeters credibility
-    df = transform_to_dataframe(get_rt_author_info(tweet['tweet_id'], NB_RT))
+    dataframe = transform_to_dataframe(
+        get_rt_author_info(tweet['tweet_id'], NB_RT))
     rt_cred = []
-    for _, tweet in df.iterrows():
-        author_cred, _ = author_credibility(tweet)
+    for _, retweet in dataframe.iterrows():
+        author_cred, _ = author_credibility(retweet)
         rt_cred.append(author_cred)
     rt_fig = px.histogram(
         pd.DataFrame({'retweets': rt_cred}),
@@ -74,7 +94,7 @@ def html_of_tweet(tweet, cred, info, folded=True, NB_RT=20):
                             score=activity_cred),
                     ]),
                 ]),
-                to_li_item('Virality', value=f'{rt} retweets'),
+                to_li_item('Virality', value=f'{nb_rt} retweets'),
                 to_li_item('Polarity', value=f'{round(polarity, 2)}',
                            description='(-1: negative, 1: positive)'),
                 to_li_item('Subjectivity', value=f'{round(subjectivity, 2)}',
@@ -86,13 +106,40 @@ def html_of_tweet(tweet, cred, info, folded=True, NB_RT=20):
     ])
 
 
-def parse_tweet_input(input):
-    if input[:4] == "http":
-        input = (input.split('/')[-1]).split('?')[0]
-    return int(input)
+def parse_tweet_input(_input):
+    """ Parse tweet input.
+
+    Parameters
+    ----------
+    _input : string
+        Tweet ID or sharing URL.
+
+    Returns
+    -------
+    int
+        Tweet ID.
+    """
+    if _input[:4] == "http":
+        _input = (_input.split('/')[-1]).split('?')[0]
+    return int(_input)
 
 
-def html_of_tweet_id(id):
-    tweet = get_tweet_info(id)
+def html_of_tweet_id(tweet_id):
+    """ Compute the analysis of the tweet.
+
+    See html_of_tweet.
+
+    Parameters
+    ----------
+    tweet_id : int
+        Tweet ID.
+
+    Returns
+    -------
+    DASH element
+        The topic analysis.
+    """
+
+    tweet = get_tweet_info(tweet_id)
     cred, info = credibility(tweet)
     return [html.H2('Results'), html_of_tweet(tweet, cred, info, folded=False)]

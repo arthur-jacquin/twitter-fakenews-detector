@@ -1,12 +1,24 @@
+""" Sentiment analysis estimation """
+
 from textblob import TextBlob
 
 
 def sentiment_analysis(tweet):
-    '''
-    cette fonction donne un score entre 0 et 1 pour un tweet donné
-    elle prend en argument une row du dataframe des tweets extraits
-    return: tuple (polarity, subjectivity)
-    '''
+    """ Estimate the polarity and the subjectivity of a tweet.
+
+    Parameters
+    ----------
+    tweet : dataframe row/dict
+        Tweet to analyse.
+
+    Returns
+    -------
+    (float, float)
+        The first element if the estimated polarity, from -1 (very negative)
+        to 1 (very positive). The second element if the estimated subjectivity,
+        from 0 (very objective) to 1 (very subjective).
+    """
+
     tweet_blob = TextBlob(tweet['tweet_textual_content']).words
     if 'RT' in tweet_blob:
         tweet_blob = tweet_blob[1:]

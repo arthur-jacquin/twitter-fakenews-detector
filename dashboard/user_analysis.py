@@ -1,20 +1,44 @@
+""" Compute a user analysis display """
+
+from dash import html
+
 from credibility.aggregator import author_credibility
 from twitter.collector import get_user_info
 from dashboard.utils import to_li_item, format_activity, format_age
 
-from dash import html
 
+def parse_user_input(_input):
+    """ Parse user input.
 
-def parse_user_input(input):
-    if input[:4] == "http":
-        input = input.split('/')[-1]
-    return input
+    Parameters
+    ----------
+    _input : string
+        User name or profile-page URL.
+
+    Returns
+    -------
+    int
+        User ID.
+    """
+    if _input[:4] == "http":
+        _input = _input.split('/')[-1]
+    return _input
 
 
 def html_of_user_id(user_id):
-    '''
-    Estimate the credibility of an user, return a DASH element.
-    '''
+    """ Compute the analysis of the user.
+
+    Parameters
+    ----------
+    user_id : int
+        User ID.
+
+    Returns
+    -------
+    DASH element
+        The user analysis.
+    """
+
     # Get user
     user = get_user_info(user_id)
 
