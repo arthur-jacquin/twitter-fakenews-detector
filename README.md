@@ -43,7 +43,7 @@ See `TIMELINE.md`
 The project is not to be develloped after the Coding Weeks. However, feel free to fork it and make it your own!
 
 
-# Contributing
+## Contributing
 
 Useful commands:
 

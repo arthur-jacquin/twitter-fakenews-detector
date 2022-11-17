@@ -63,6 +63,6 @@ def ratio_of_statuses_account_age(tweet):
     Returns
     -------
     float
-        Ratio of statuses to the account age for the tweet author
+        Ratio of statuses to the account age for the tweet author.
     """
     return tweet['user_nb_status']/account_age(tweet)
