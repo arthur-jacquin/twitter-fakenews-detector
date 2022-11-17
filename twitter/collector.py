@@ -125,7 +125,7 @@ def get_user_info(user_id):
     api = twitter_setup()
 
     # Query
-    user = api.get_user(user_id)
+    user = api.get_user(screen_name=user_id)
 
     return {
         'user_creation_date': user.created_at,
