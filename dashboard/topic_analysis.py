@@ -7,7 +7,6 @@ from dash import dcc, html
 import pandas as pd
 import plotly.express as px
 from wordcloud import WordCloud
-#import matplotlib.pyplot as plt
 from io import BytesIO
 import base64
 
