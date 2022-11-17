@@ -1,4 +1,4 @@
-from twitter.collector import collect_tweets, get_rt_author_info, transform_to_dataframe, get_tweet_info
+from twitter.collector import collect_tweets, get_rt_author_info, transform_to_dataframe, get_tweet_info, get_user_info
 
 
 def test_transform_to_dataframe():
@@ -41,7 +41,7 @@ def test_get_tweet_info():
 
 
 def test_get_user_info():
-    user = get_tweet_info("https://twitter.com/lecartographe")
+    user = get_user_info("lecartographe")
 
     assert 'user_creation_date' in user
     assert 'user_nb_followers' in user

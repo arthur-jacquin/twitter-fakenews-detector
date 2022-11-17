@@ -69,7 +69,7 @@ app.layout = html.Div([
     State('text-input', 'value'),
     State('slider', 'value'),
 )
-def update_output(n_clicks, queries, tweet_number_linear):
+def update_output_topic(n_clicks, queries, tweet_number_linear):
     tweet_number = int(10**(tweet_number_linear))
     if n_clicks > 0:
         return topic_analysis(queries, tweet_number)
@@ -80,7 +80,7 @@ def update_output(n_clicks, queries, tweet_number_linear):
     Input('user-submit-button', 'n_clicks'),
     State('user-input', 'value'),
 )
-def update_output(n_clicks, user):
+def update_output_user(n_clicks, user):
     if n_clicks > 0:
         return html_of_user_id(parse_user_input(user))
 
@@ -90,7 +90,7 @@ def update_output(n_clicks, user):
     Input('tweet-submit-button', 'n_clicks'),
     State('tweet-input', 'value'),
 )
-def update_output(n_clicks, tweet):
+def update_output_tweet(n_clicks, tweet):
     if n_clicks > 0:
         return html_of_tweet_id(parse_tweet_input(tweet))
 

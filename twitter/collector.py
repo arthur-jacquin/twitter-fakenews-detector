@@ -1,6 +1,5 @@
 from twitter.connection_setup import twitter_setup
 
-import tweepy
 import pandas as pd
 
 
