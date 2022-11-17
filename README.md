@@ -1,11 +1,29 @@
-# fakenewsdetector_group13
+# Fake News Detector
 
 ## Description
 
 Dashboard giving a general overview over the credibility of the most popular tweets on a given topic. In particular, the dashboard highlights the tweets that are the most likely to be fake news, with an advanced credibility analysis breakdown. It is also possible to estimate the credibility of a given user or tweet.
 
 
-## Members
+## Usage
+
+TODO
+
+Perfect for political campaigns.
+
+Input: either
+- topic/hashtag
+- user name/url of an user profile
+- url of a tweet
+
+Output:
+- Credibility repartition
+- Identification of the most likely false, and true tweets, with an advanced breakdown of the credibility analysis and alerts about suspicious caracteristics
+- Fiability-propagation correlation, propagation-subjectivity correlation graphs
+- Cloud of vocabulary related to the chosen topic/username/tweet
+
+
+## Authors
 
 - Yann Chauvard
 - David Houri
@@ -20,8 +38,16 @@ Dashboard giving a general overview over the credibility of the most popular twe
 See `TIMELINE.md`
 
 
-## Rules for code management
+## Status
 
+The project is not to be develloped after the Coding Weeks. However, feel free to fork it and make it your own!
+
+
+# Contributing
+
+Useful commands:
+
+- Test the code cleanness: `py -m pylint script.py`
 - Test the code: `py -m pytest`
 - Test the coverage: `py -m pytest --cov=.` in main directory
 
@@ -46,6 +72,7 @@ Before commiting:
     - `delete: __pycache__ (now ignored thanks to .gitignore)`
     - `modif: change spacing`
     - `cleaning: restructuring file structure`
+5. `git pull`. If there is a conflict, tell everybody and solve it locally with the team. Then restart the process.
 
 Before pushing:
 
@@ -53,42 +80,25 @@ Before pushing:
 2. Tell everybody that you are going to `push`.
 
 
-## Usage
-
-TODO
-
-Perfect for political campaigns.
-
-Input: either
-- topic/hashtag
-- user name/url of an user profile
-- url of a tweet
-
-Output:
-- Credibility repartition
-- Identification of the most likely false, and true tweets, with an advanced breakdown of the credibility analysis and alerts about suspicious caracteristics
-- Fiability-propagation correlation, propagation-subjectivity correlation graphs
-- Cloud of vocabulary related to the chosen topic/username/tweet
-
-
 ## License
 
 See `LICENSE`.
 
 
-
 ## Credits and sources
 
-ML :
-- RandomForestClassifier https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html
-- SVC classifier https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html
-- Dataset 1,
-author : Veronica Perez-Rosas, Bennett Kleinberg, Alexandra Lefevre, Rada Mihalcea,
-title : Automatic Detection of Fake News,
-journal : International Conference on Computational Linguistics (COLING),
-year : 2018
-- LIAR Dataset author : William Wang, william@cs.ucsb.edu
+- [RandomForestClassifier](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html)
+- [SVC classifier](https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html)
+- Dataset 1:
+    - Authors: Veronica Perez-Rosas, Bennett Kleinberg, Alexandra Lefevre, Rada Mihalcea
+    - Title: Automatic Detection of Fake News
+    - Journal: International Conference on Computational Linguistics (COLING)
+    - Year: 2018
+- LIAR Dataset:
+    - Author: William Wang, william@cs.ucsb.edu
 
-diapo 
-https://docs.google.com/presentation/d/17r5GMkfw078WZiYudzLYgj-E9xjYL0YFxJ5U_GvQ6SQ/edit?usp=sharing
+
+## Links
+
+- [Presentation slideshow](https://docs.google.com/presentation/d/17r5GMkfw078WZiYudzLYgj-E9xjYL0YFxJ5U_GvQ6SQ/edit?usp=sharing)
 
