@@ -29,8 +29,13 @@ def to_li_item(name, value=None, score=None, description=None):
     if description:
         res.append(html.Span(description, className='description'))
     if score:
-        # Coloration
-        res.append(html.Span(str(round(score, 2)), className='score'))
+        if score >= 0.8:
+            class_name = 'score_bad'
+        elif score <= 0.5:
+            class_name = 'score_good'
+        else:
+            class_name = 'score_neutral'
+        res.append(html.Span(str(round(score, 2)), className=class_name))
     return html.Li(children=res)
 
 

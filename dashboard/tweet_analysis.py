@@ -73,9 +73,8 @@ def html_of_tweet(tweet, cred, info, folded=True):
     # DASH results
     return html.Div(className='tweet', children=[
         html.Div(content, className='tweet_content'),
-        html.Div(f'Tweeted by @{author}', className='tweet_author'),
         html.Details(open=not (folded), children=[
-            html.Summary('Show/hide analysis breakdown'),
+            html.Summary(f'Tweeted by @{author}.'),
             html.Ul(children=[
                 to_li_item('Credibility', score=cred),
                 html.Ul(children=[
@@ -87,7 +86,7 @@ def html_of_tweet(tweet, cred, info, folded=True):
                             value=format_age(age),
                             score=age_cred),
                         to_li_item('Following/followers ratio',
-                            value=round(follow, 2),
+                            value=str(round(follow, 2)),
                             score=follow_cred),
                         to_li_item('Activity',
                             value=format_activity(activity),
@@ -95,11 +94,12 @@ def html_of_tweet(tweet, cred, info, folded=True):
                     ]),
                 ]),
                 to_li_item('Virality', value=f'{nb_rt} retweets'),
-                to_li_item('Polarity', value=f'{round(polarity, 2)}',
+                to_li_item('Polarity', value=str(round(polarity, 2)),
                            description='(-1: negative, 1: positive)'),
-                to_li_item('Subjectivity', value=f'{round(subjectivity, 2)}',
-                           description='(0: ojbective, 1: subjective)'),
-                to_li_item('Retweeters credibility repartition')
+                to_li_item('Subjectivity', value=str(round(subjectivity, 2)),
+                           description='(0: objective, 1: subjective)'),
+                to_li_item('Retweeters credibility repartition',
+                           description='(see below)'),
             ]),
             dcc.Graph(figure=rt_fig),
         ]),
