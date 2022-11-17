@@ -77,7 +77,7 @@ def get_rt_author_info(tweet_id, number):
     api = twitter_setup()
 
     # Query
-    res = api.get_retweets(tweet_id, count=number, trim_user=True)
+    res = api.get_retweets(tweet_id, count=number)
 
     # Collect
     for tweet in res:
@@ -91,4 +91,27 @@ def get_rt_author_info(tweet_id, number):
         'user_nb_followers': user_nb_followers,
         'user_nb_followings': user_nb_followings,
         'user_nb_status': user_nb_status,
+    }
+
+
+def get_tweet_info(tweet_id):
+    '''
+    Get info on the tweet of id tweet_id.
+    '''
+    # Connection setup
+    api = twitter_setup()
+
+    # Query
+    tweet = api.get_status(tweet_id)
+
+    return {
+        'tweet_textual_content': tweet.text,
+        'user_id': tweet.author.id,
+        'user_name': tweet.author.screen_name,
+        'tweet_id': tweet.id,
+        'user_creation_date': tweet.user.created_at,
+        'tweet_nb_rt': tweet.retweet_count,
+        'user_nb_followers': tweet.user.followers_count,
+        'user_nb_followings': tweet.user.friends_count,
+        'user_nb_status': tweet.user.statuses_count,
     }
