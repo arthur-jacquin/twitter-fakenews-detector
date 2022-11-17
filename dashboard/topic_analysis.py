@@ -1,4 +1,4 @@
-""" Compute a topic analysis display """
+""" Compute a topic analysis display. """
 
 from io import BytesIO
 import base64

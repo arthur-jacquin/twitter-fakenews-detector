@@ -1,4 +1,4 @@
-""" Compute a tweet analysis display """
+""" Compute a tweet analysis display. """
 
 from dash import dcc, html
 import pandas as pd

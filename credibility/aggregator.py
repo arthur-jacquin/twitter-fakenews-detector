@@ -1,16 +1,29 @@
+""" Aggregates information to compute an unique credibility estimation. """
+
 from math import log
+
 from credibility.credibility_analysis import ml_analysis
 from credibility.profile_analysis import account_age, number_of_followers, number_of_following, ratio_of_statuses_account_age
 from dashboard.utils import barycentre, force_0_1
 
 
 def author_credibility(tweet):
-    '''
-    Compute a real between 0 and 1 reflecting the credibility of the tweet author.
-    The higher the number is, the most suspicious the author is.
+    """ Compute the credibility of the tweet author.
 
-    Also returns the breakdown analysis, as well as some alerts and indications.
-    '''
+    Parameters
+    ----------
+    tweet : dataframe row/dict
+        Tweet to analyse.
+
+    Returns
+    -------
+    float
+        The estimated credibility, between 0 and 1.
+        The higher the number is, the most suspicious the author is.
+    dict
+        Analysis breakdown.
+    """
+
     # Account age
     # Moins d'un mois: ça craint; Plus d'un an: ok
     age = account_age(tweet)
@@ -45,12 +58,22 @@ def author_credibility(tweet):
 
 
 def credibility(tweet):
-    '''
-    Compute a real between 0 and 1 reflecting the credibility of a tweet.
-    The higher the number is, the most likely the tweet is fake news.
+    """ Compute the credibility of the tweet.
 
-    Also returns the breakdown analysis, as well as some alerts and indications.
-    '''
+    Parameters
+    ----------
+    tweet : dataframe row/dict
+        Tweet to analyse.
+
+    Returns
+    -------
+    float
+        The estimated credibility, between 0 and 1.
+        The higher the number is, the most likely the tweet is fake news.
+    dict
+        Analysis breakdown.
+    """
+
     # Machine learning
     ml_credibility = force_0_1(ml_analysis(tweet))
 

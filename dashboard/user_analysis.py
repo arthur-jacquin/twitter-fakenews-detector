@@ -1,4 +1,4 @@
-""" Compute a user analysis display """
+""" Compute a user analysis display. """
 
 from dash import html
 
