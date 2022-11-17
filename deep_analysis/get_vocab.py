@@ -1,9 +1,6 @@
 from textblob import TextBlob
 from textblob import Word
 
-import nltk
-nltk.download('omw-1.4')
-
 
 def get_vocab(tweet):
     '''This function returns a string with only the important words contained in a tweet'''
