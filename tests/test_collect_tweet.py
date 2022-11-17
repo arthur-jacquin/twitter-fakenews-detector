@@ -1,4 +1,4 @@
-from twitter.collector import collect_tweets, get_rt_author_info, transform_to_dataframe
+from twitter.collector import collect_tweets, get_rt_author_info, transform_to_dataframe, get_tweet_info
 
 
 def test_transform_to_dataframe():
@@ -25,3 +25,16 @@ def test_get_rt_author_info():
     assert 'user_nb_followers' in info
     assert 'user_nb_followings' in info
     assert 'user_nb_status' in info
+
+
+def test_get_tweet_info():
+    tweet = get_tweet_info(1592765408754311168)
+
+    assert 'tweet_textual_content' in tweet
+    assert 'user_id' in tweet
+    assert 'tweet_id' in tweet
+    assert 'user_creation_date' in tweet
+    assert 'tweet_nb_rt' in tweet
+    assert 'user_nb_followers' in tweet
+    assert 'user_nb_followings' in tweet
+    assert 'user_nb_status' in tweet
