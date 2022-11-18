@@ -81,7 +81,7 @@ def credibility(tweet):
     author_cred, info = author_credibility(tweet)
 
     return barycentre([
-        (ml_credibility, 4),
+        (ml_credibility, 2),
         (author_cred, 1),
     ]), {
         'ml': ml_credibility,
