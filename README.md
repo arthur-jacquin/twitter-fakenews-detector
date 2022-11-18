@@ -7,20 +7,17 @@ Dashboard giving a general overview over the credibility of the most popular twe
 
 ## Usage
 
-TODO
+This tool is perfect for political campaigns. For a candidate preparing an interview, a query on any topic (in the "Topic analysis" tab) will give:
+- the population feelings about the topic (polarity, subjectivity),
+- the correlation between virality and credibility,
+- the (most probably) fake news to debunk,
+- the (most) credible pieces of news to be aware of,
+- related topics, to help the candidate moving in a debate.
 
-Perfect for political campaigns.
+The credibility estimation of the selected tweets can be explored thanks to the collapsible analysis breakdowns.
 
-Input: either
-- topic/hashtag
-- user name/url of an user profile
-- url of a tweet
 
-Output:
-- Credibility repartition
-- Identification of the most likely false, and true tweets, with an advanced breakdown of the credibility analysis and alerts about suspicious caracteristics
-- Fiability-propagation correlation, propagation-subjectivity correlation graphs
-- Cloud of vocabulary related to the chosen topic/username/tweet
+To deepen the analysis, one could also target a specific user or tweet, thanks to the associated tabs. The input can either be the object URL or, if already known, the object ID.
 
 
 ## Authors
@@ -44,6 +41,8 @@ The project is not to be develloped after the Coding Weeks. However, feel free t
 
 
 ## Contributing
+
+The code is well documented with docstrings.
 
 Useful commands:
 
