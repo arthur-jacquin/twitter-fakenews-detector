@@ -10,10 +10,10 @@ from credibility.aggregator import author_credibility, credibility
 from dashboard.utils import to_li_item, format_age, format_activity
 
 COLOR = px.colors.sequential.RdBu
-NB_RT = 20
+NB_RT = 100
 
 
-def html_of_tweet(tweet, cred, info, folded=True):
+def html_of_tweet(tweet, cred, info, rt_exploration=False, folded=True):
     """ Compute the analysis of the tweet.
 
     Folded mode: textual content, author name.
@@ -57,52 +57,54 @@ def html_of_tweet(tweet, cred, info, folded=True):
     nb_rt = tweet['tweet_nb_rt']
     polarity, subjectivity = sentiment_analysis(tweet)
 
-    # Extract retweeters credibility
-    dataframe = transform_to_dataframe(
-        get_rt_author_info(tweet['tweet_id'], NB_RT))
-    rt_cred = []
-    for _, retweet in dataframe.iterrows():
-        author_cred, _ = author_credibility(retweet)
-        rt_cred.append(author_cred)
-    rt_fig = px.histogram(
-        pd.DataFrame({'retweets': rt_cred}),
-        x="retweets",
-        color_discrete_sequence=COLOR,
-    )
-
     # DASH results
+    res = [
+        html.Summary(f'Tweeted by @{author}.'),
+        html.Ul(children=[
+            to_li_item('Credibility', score=cred),
+            html.Ul(children=[
+                to_li_item('Machine learning-based estimation',
+                           score=ml_score),
+                to_li_item('Author credibility', score=author_cred),
+                html.Ul(children=[
+                    to_li_item('Account age',
+                        value=format_age(age),
+                        score=age_cred),
+                    to_li_item('Following/followers ratio',
+                        value=str(round(follow, 2)),
+                        score=follow_cred),
+                    to_li_item('Activity',
+                        value=format_activity(activity),
+                        score=activity_cred),
+                ]),
+            ]),
+            to_li_item('Virality', value=f'{nb_rt} retweets'),
+            to_li_item('Polarity', value=str(round(polarity, 2)),
+                       description='(-1: negative, 1: positive)'),
+            to_li_item('Subjectivity', value=str(round(subjectivity, 2)),
+                       description='(0: objective, 1: subjective)'),
+            to_li_item('Tweet ID', value=str(tweet['tweet_id']),
+                       description='(use it in the "Tweet analysis" tab)'),
+        ]),
+    ]
+
+    if rt_exploration:
+        # Extract retweeters credibility
+        dataframe = transform_to_dataframe(
+            get_rt_author_info(tweet['tweet_id'], NB_RT))
+        rt_cred = []
+        for _, retweet in dataframe.iterrows():
+            author_cred, _ = author_credibility(retweet)
+            rt_cred.append(author_cred)
+        res += [dcc.Graph(figure=px.histogram(
+            pd.DataFrame({'retweets': rt_cred}),
+            x="retweets",
+            color_discrete_sequence=COLOR,
+        ))]
+
     return html.Div(className='tweet', children=[
         html.Div(content, className='tweet_content'),
-        html.Details(open=not (folded), children=[
-            html.Summary(f'Tweeted by @{author}.'),
-            html.Ul(children=[
-                to_li_item('Credibility', score=cred),
-                html.Ul(children=[
-                    to_li_item('Machine learning-based estimation',
-                               score=ml_score),
-                    to_li_item('Author credibility', score=author_cred),
-                    html.Ul(children=[
-                        to_li_item('Account age',
-                            value=format_age(age),
-                            score=age_cred),
-                        to_li_item('Following/followers ratio',
-                            value=str(round(follow, 2)),
-                            score=follow_cred),
-                        to_li_item('Activity',
-                            value=format_activity(activity),
-                            score=activity_cred),
-                    ]),
-                ]),
-                to_li_item('Virality', value=f'{nb_rt} retweets'),
-                to_li_item('Polarity', value=str(round(polarity, 2)),
-                           description='(-1: negative, 1: positive)'),
-                to_li_item('Subjectivity', value=str(round(subjectivity, 2)),
-                           description='(0: objective, 1: subjective)'),
-                to_li_item('Retweeters credibility repartition',
-                           description='(see below)'),
-            ]),
-            dcc.Graph(figure=rt_fig),
-        ]),
+        html.Details(open=not (folded), children=res),
     ])
 
 
@@ -142,4 +144,4 @@ def html_of_tweet_id(tweet_id):
 
     tweet = get_tweet_info(tweet_id)
     cred, info = credibility(tweet)
-    return [html.H2('Results'), html_of_tweet(tweet, cred, info, folded=False)]
+    return [html.H2('Results'), html_of_tweet(tweet, cred, info, rt_exploration=True, folded=False)]
